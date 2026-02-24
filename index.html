@@ -20,9 +20,8 @@
   --purple: #bc8cff;
   --orange: #ffa657;
 }
-
 * { margin:0; padding:0; box-sizing:border-box; }
-
+html { scroll-behavior: smooth; }
 body {
   font-family: 'Cairo', sans-serif;
   background: var(--bg);
@@ -32,438 +31,218 @@ body {
 
 /* HERO */
 .hero {
-  background: linear-gradient(135deg, #0d1117 0%, #1a2332 50%, #0d1117 100%);
+  background: linear-gradient(135deg, #0d1117 0%, #1a2332 60%, #0d1117 100%);
   border-bottom: 1px solid var(--border);
   padding: 48px 24px 36px;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-.hero::before {
-  content: '🧬';
-  position: absolute;
-  font-size: 180px;
-  opacity: 0.03;
-  top: -20px; left: 10px;
-}
-.hero::after {
-  content: '🏥';
-  position: absolute;
-  font-size: 180px;
-  opacity: 0.03;
-  bottom: -30px; right: 10px;
-}
+.hero::before { content:'🧬'; position:absolute; font-size:180px; opacity:0.03; top:-20px; left:10px; }
+.hero::after  { content:'🏥'; position:absolute; font-size:180px; opacity:0.03; bottom:-30px; right:10px; }
 .badge {
-  display: inline-block;
-  background: rgba(88,166,255,0.1);
-  border: 1px solid rgba(88,166,255,0.3);
-  color: var(--accent);
-  font-size: 0.75rem;
-  padding: 4px 16px;
-  border-radius: 50px;
-  margin-bottom: 16px;
-  letter-spacing: 2px;
+  display:inline-block; background:rgba(88,166,255,0.1);
+  border:1px solid rgba(88,166,255,0.3); color:var(--accent);
+  font-size:0.75rem; padding:4px 16px; border-radius:50px;
+  margin-bottom:16px; letter-spacing:2px;
 }
-.hero h1 {
-  font-family: 'Tajawal', sans-serif;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  font-weight: 900;
-  color: white;
-  margin-bottom: 8px;
-}
-.hero h1 span {
-  background: linear-gradient(90deg, #58a6ff, #bc8cff, #3fb950);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero p { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; }
-
+.hero h1 { font-family:'Tajawal',sans-serif; font-size:clamp(1.6rem,4vw,2.6rem); font-weight:900; color:white; margin-bottom:8px; }
+.hero h1 span { background:linear-gradient(90deg,#58a6ff,#bc8cff,#3fb950); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero p { color:var(--muted); font-size:0.95rem; margin-bottom:24px; }
 .team { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
-.team-pill {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  padding: 6px 16px;
-  font-size: 0.8rem;
-  color: var(--muted);
-}
+.team-pill { background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:50px; padding:6px 16px; font-size:0.8rem; color:var(--muted); }
 
-/* SETTINGS */
-.settings-bar {
-  max-width: 800px;
-  margin: 28px auto 0;
-  padding: 0 20px;
+/* STICKY SCOREBOARD */
+.sticky-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13,17,23,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
   align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
   justify-content: center;
 }
-.filter-btn {
-  padding: 8px 18px;
-  border-radius: 50px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--muted);
-  font-family: 'Cairo', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
+.sticky-score {
   display: flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; font-weight: 700;
 }
-.filter-btn:hover, .filter-btn.active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(88,166,255,0.1);
-}
-.filter-btn.active { box-shadow: 0 0 12px rgba(88,166,255,0.2); }
-
-/* SCOREBOARD */
-.scoreboard {
-  max-width: 800px;
-  margin: 24px auto 0;
-  padding: 0 20px;
-}
-.score-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-.score-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px;
-  text-align: center;
-}
-.score-num {
-  font-family: 'Tajawal', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 900;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.score-label { font-size: 0.75rem; color: var(--muted); }
-.score-card.correct .score-num { color: var(--green); }
-.score-card.wrong   .score-num { color: var(--red); }
-.score-card.total   .score-num { color: var(--accent); }
-.score-card.pct     .score-num { color: var(--purple); }
+.sticky-score .num { font-family:'Tajawal',sans-serif; font-size:1.1rem; font-weight:900; }
+.sticky-score.cor .num { color: var(--green); }
+.sticky-score.wrg .num { color: var(--red); }
+.sticky-score.tot .num { color: var(--accent); }
+.sticky-score.pct .num { color: var(--purple); }
+.sticky-divider { width:1px; height:24px; background:var(--border); }
 
 /* PROGRESS */
 .progress-wrap {
-  max-width: 800px;
-  margin: 16px auto 0;
-  padding: 0 20px;
+  padding: 6px 20px 0;
+  max-width: 860px;
+  margin: 0 auto;
 }
-.progress-bar {
-  height: 6px;
-  background: var(--surface2);
-  border-radius: 3px;
-  overflow: hidden;
+.prog-bar {
+  height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden;
 }
-.progress-fill {
-  height: 100%;
+.prog-fill {
+  height:100%;
   background: linear-gradient(90deg, var(--accent), var(--purple));
-  border-radius: 3px;
-  transition: width 0.4s ease;
+  border-radius:2px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
   width: 0%;
 }
-.progress-label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.78rem;
-  color: var(--muted);
-  margin-top: 6px;
+.prog-label {
+  display:flex; justify-content:space-between;
+  font-size:0.75rem; color:var(--muted); margin-top:4px; margin-bottom:8px;
 }
 
-/* QUIZ AREA */
-.quiz-area {
-  max-width: 800px;
-  margin: 28px auto 60px;
+/* FILTER */
+.filter-wrap {
+  max-width: 860px;
+  margin: 20px auto 0;
   padding: 0 20px;
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+}
+.filter-btn {
+  padding:7px 16px; border-radius:50px; border:1px solid var(--border);
+  background:var(--surface); color:var(--muted);
+  font-family:'Cairo',sans-serif; font-size:0.8rem; font-weight:600;
+  cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:5px;
+}
+.filter-btn:hover, .filter-btn.active {
+  border-color:var(--accent); color:var(--accent);
+  background:rgba(88,166,255,0.1);
+  box-shadow: 0 0 10px rgba(88,166,255,0.15);
 }
 
-/* Question Card */
+/* QUIZ LIST */
+.quiz-list {
+  max-width: 860px;
+  margin: 24px auto 60px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Q CARD */
 .q-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  transition: border-color 0.3s;
+  scroll-margin-top: 90px;
 }
+.q-card.answered-correct { border-color: rgba(63,185,80,0.4); }
+.q-card.answered-wrong   { border-color: rgba(248,81,73,0.35); }
 
 .q-header {
-  padding: 20px 28px 16px;
+  padding: 18px 24px 14px;
   border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+  flex-wrap: wrap;
 }
-
 .q-num {
-  background: rgba(88,166,255,0.15);
-  color: var(--accent);
-  border: 1px solid rgba(88,166,255,0.3);
-  border-radius: 8px;
-  padding: 4px 12px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  white-space: nowrap;
-  flex-shrink: 0;
-  margin-top: 2px;
+  background: rgba(88,166,255,0.12); color: var(--accent);
+  border: 1px solid rgba(88,166,255,0.25); border-radius: 7px;
+  padding: 3px 10px; font-size: 0.75rem; font-weight:700;
+  white-space:nowrap; flex-shrink:0; margin-top:3px;
 }
-
 .q-sys-badge {
-  padding: 4px 12px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  white-space: nowrap;
-  flex-shrink: 0;
-  margin-top: 2px;
+  padding:3px 10px; border-radius:7px; font-size:0.72rem;
+  font-weight:700; white-space:nowrap; flex-shrink:0; margin-top:3px;
 }
-
-.q-text-wrap { flex: 1; }
-
-.q-en {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text);
-  direction: ltr;
-  text-align: left;
-  line-height: 1.5;
-  margin-bottom: 6px;
-}
-
-.q-ar {
-  font-size: 0.88rem;
-  color: var(--muted);
-  line-height: 1.6;
-}
+.q-text-wrap { flex:1; min-width:0; }
+.q-en { font-size:1.05rem; font-weight:700; color:var(--text); direction:ltr; text-align:left; line-height:1.5; margin-bottom:5px; }
+.q-ar { font-size:0.85rem; color:var(--muted); line-height:1.6; }
 
 /* OPTIONS */
 .options {
-  padding: 20px 28px;
+  padding: 16px 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
 }
-
 .opt-btn {
-  background: var(--surface2);
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 16px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: right;
-  font-family: 'Cairo', sans-serif;
+  background: var(--surface2); border: 2px solid var(--border);
+  border-radius: 11px; padding: 12px 14px;
+  cursor: pointer; transition: all 0.2s; text-align:right;
+  font-family:'Cairo',sans-serif;
 }
-
 .opt-btn:hover:not(:disabled) {
-  border-color: var(--accent);
-  background: rgba(88,166,255,0.08);
+  border-color: var(--accent); background: rgba(88,166,255,0.07);
   transform: translateY(-1px);
 }
-
-.opt-btn:disabled { cursor: default; }
-
-.opt-en {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--text);
-  direction: ltr;
-  text-align: left;
-  display: block;
-  margin-bottom: 3px;
-}
-
-.opt-ar {
-  font-size: 0.8rem;
-  color: var(--muted);
-  display: block;
-}
-
+.opt-btn:disabled { cursor:default; }
+.opt-en { font-size:0.88rem; font-weight:700; color:var(--text); direction:ltr; text-align:left; display:block; margin-bottom:2px; }
+.opt-ar { font-size:0.77rem; color:var(--muted); display:block; }
 .opt-letter {
-  display: inline-block;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--border);
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-align: center;
-  line-height: 22px;
-  margin-left: 8px;
-  float: left;
-  margin-top: 2px;
+  display:inline-block; width:20px; height:20px; border-radius:50%;
+  background:var(--border); color:var(--muted); font-size:0.68rem;
+  font-weight:700; text-align:center; line-height:20px;
+  margin-left:7px; float:left; margin-top:1px; flex-shrink:0;
 }
-
-/* Correct / Wrong states */
-.opt-btn.correct {
-  border-color: var(--green) !important;
-  background: rgba(63,185,80,0.12) !important;
-}
-.opt-btn.correct .opt-letter { background: var(--green); color: white; }
+.opt-btn.correct { border-color: var(--green) !important; background: rgba(63,185,80,0.1) !important; }
+.opt-btn.correct .opt-letter { background: var(--green); color:white; }
 .opt-btn.correct .opt-en { color: var(--green); }
-
-.opt-btn.wrong {
-  border-color: var(--red) !important;
-  background: rgba(248,81,73,0.1) !important;
-}
-.opt-btn.wrong .opt-letter { background: var(--red); color: white; }
-.opt-btn.wrong .opt-en { color: var(--red); }
-
-.opt-btn.dimmed { opacity: 0.4; }
+.opt-btn.wrong   { border-color: var(--red) !important; background: rgba(248,81,73,0.08) !important; }
+.opt-btn.wrong   .opt-letter { background: var(--red); color:white; }
+.opt-btn.wrong   .opt-en { color: var(--red); }
+.opt-btn.dimmed  { opacity: 0.38; }
 
 /* FEEDBACK */
 .feedback {
-  margin: 0 28px 20px;
-  border-radius: 14px;
-  padding: 16px 20px;
-  display: none;
-  animation: fadeIn 0.3s ease;
+  margin: 0 24px 16px; border-radius:12px; padding:14px 18px;
+  display:none;
+  animation: fbIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
 }
-
-@keyframes fadeIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-
-.feedback.correct-fb {
-  background: rgba(63,185,80,0.1);
-  border: 1px solid rgba(63,185,80,0.3);
-  display: block;
-}
-.feedback.wrong-fb {
-  background: rgba(248,81,73,0.08);
-  border: 1px solid rgba(248,81,73,0.25);
-  display: block;
-}
-
-.fb-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  display: flex; align-items: center; gap: 8px;
-}
-.feedback.correct-fb .fb-title { color: var(--green); }
-.feedback.wrong-fb .fb-title { color: var(--red); }
-
-.fb-correct-answer {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-.fb-correct-answer strong { color: var(--green); }
-
-.fb-explain {
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.7;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 8px;
-  margin-top: 8px;
-}
-
-/* NEXT BTN */
-.next-wrap {
-  padding: 0 28px 24px;
-  display: none;
-}
-.next-wrap.show { display: block; }
-
-.next-btn {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, var(--accent), var(--purple));
-  border: none;
-  border-radius: 12px;
-  color: white;
-  font-family: 'Cairo', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.2s;
-}
-.next-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+@keyframes fbIn { from{opacity:0;transform:translateY(-6px) scale(0.98)} to{opacity:1;transform:none} }
+.feedback.show-correct { display:block; background:rgba(63,185,80,0.09); border:1px solid rgba(63,185,80,0.28); }
+.feedback.show-wrong   { display:block; background:rgba(248,81,73,0.07); border:1px solid rgba(248,81,73,0.22); }
+.fb-title { font-size:0.9rem; font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:7px; }
+.feedback.show-correct .fb-title { color: var(--green); }
+.feedback.show-wrong   .fb-title { color: var(--red); }
+.fb-ans { font-size:0.82rem; color:var(--muted); margin-bottom:5px; }
+.fb-ans strong { color: var(--green); }
+.fb-explain { font-size:0.82rem; color:var(--muted); line-height:1.75; border-top:1px solid rgba(255,255,255,0.05); padding-top:7px; margin-top:7px; }
 
 /* RESULTS */
 .results-screen {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 48px 32px;
-  text-align: center;
-  display: none;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  background: var(--surface); border:1px solid var(--border);
+  border-radius:20px; padding:48px 28px; text-align:center;
+  display:none; box-shadow:0 8px 32px rgba(0,0,0,0.4);
+  scroll-margin-top: 80px;
 }
-.results-screen.show { display: block; }
-
-.result-emoji { font-size: 5rem; margin-bottom: 16px; display: block; }
-.result-title {
-  font-family: 'Tajawal', sans-serif;
-  font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 8px;
-}
-.result-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 32px; }
-
-.result-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 32px;
-}
-.rs-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
-}
-.rs-num {
-  font-family: 'Tajawal', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 900;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.rs-label { font-size: 0.8rem; color: var(--muted); }
-
+.results-screen.show { display:block; }
+.res-emoji { font-size:5rem; display:block; margin-bottom:14px; }
+.res-title { font-family:'Tajawal',sans-serif; font-size:2rem; font-weight:900; margin-bottom:6px; }
+.res-sub { color:var(--muted); font-size:0.9rem; margin-bottom:28px; }
+.res-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:28px; }
+.res-card { background:var(--surface2); border:1px solid var(--border); border-radius:13px; padding:18px; }
+.res-num { font-family:'Tajawal',sans-serif; font-size:2rem; font-weight:900; line-height:1; margin-bottom:5px; }
+.res-label { font-size:0.78rem; color:var(--muted); }
 .restart-btn {
-  padding: 14px 40px;
-  background: linear-gradient(135deg, var(--accent), var(--purple));
-  border: none;
-  border-radius: 12px;
-  color: white;
-  font-family: 'Cairo', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity 0.2s;
-  margin: 0 8px;
+  padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple));
+  border:none; border-radius:11px; color:white;
+  font-family:'Cairo',sans-serif; font-size:0.95rem; font-weight:700;
+  cursor:pointer; margin:0 6px 10px; transition:opacity 0.2s, transform 0.2s;
 }
-.restart-btn:hover { opacity: 0.88; }
-.restart-btn.outline {
-  background: transparent;
-  border: 2px solid var(--border);
-  color: var(--text);
-}
+.restart-btn:hover { opacity:0.88; transform:translateY(-1px); }
+.restart-btn.outline { background:transparent; border:2px solid var(--border); color:var(--text); }
 
-/* empty state */
-.empty {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--muted);
-  display: none;
-}
-.empty.show { display: block; }
+/* Empty */
+.empty { text-align:center; padding:60px 20px; color:var(--muted); display:none; }
+.empty.show { display:block; }
 
 @media(max-width:600px){
-  .options { grid-template-columns: 1fr; }
-  .score-grid { grid-template-columns: repeat(2,1fr); }
-  .result-stats { grid-template-columns: 1fr; }
-  .q-header { flex-wrap: wrap; }
-  .settings-bar { gap: 8px; }
+  .options { grid-template-columns:1fr; }
+  .res-grid { grid-template-columns:1fr 1fr; }
+  .q-header { flex-wrap:wrap; }
+  .sticky-bar { gap:10px; padding:8px 12px; }
 }
 </style>
 </head>
@@ -473,7 +252,7 @@ body {
 <header class="hero">
   <div class="badge">🏥 MEDICAL QUIZ BANK</div>
   <h1>بنك أسئلة <span>المصطلحات الطبية</span></h1>
-  <p>اختبر نفسك في المصطلحات الطبية — أسئلة متعددة الاختيار مع شرح مفصل</p>
+  <p>60 سؤال متنوع — اختبر نفسك مع شرح مفصل لكل إجابة</p>
   <div class="team">
     <span class="team-pill">𝑴𝑶𝑺𝑻𝑨𝑭𝑨 𝑺𝑨𝑳𝑳𝑨𝑴</span>
     <span class="team-pill">𝑵𝑨𝑫𝑬𝑹 𝑴𝑶𝑯𝑨𝑴𝑬𝑫</span>
@@ -481,570 +260,284 @@ body {
   </div>
 </header>
 
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-score tot">📋 إجمالي: <span class="num" id="scTotal">0</span></div>
+  <div class="sticky-divider"></div>
+  <div class="sticky-score cor">✅ صح: <span class="num" id="scCorrect">0</span></div>
+  <div class="sticky-divider"></div>
+  <div class="sticky-score wrg">❌ غلط: <span class="num" id="scWrong">0</span></div>
+  <div class="sticky-divider"></div>
+  <div class="sticky-score pct">🎯 <span class="num" id="scPct">0%</span></div>
+  <div class="sticky-divider"></div>
+  <div class="progress-wrap" style="flex:1;min-width:140px;padding:0;">
+    <div class="prog-bar"><div class="prog-fill" id="progressFill"></div></div>
+    <div class="prog-label"><span id="progLabel">0 / 0</span><span id="progRight"></span></div>
+  </div>
+</div>
+
 <!-- FILTER -->
-<div class="settings-bar">
-  <button class="filter-btn active" onclick="setFilter('all',this)">🗂️ كل الأجهزة</button>
+<div class="filter-wrap">
+  <button class="filter-btn active" onclick="setFilter('all',this)">🗂️ الكل (60)</button>
   <button class="filter-btn" onclick="setFilter('cardio',this)">🫀 القلب</button>
   <button class="filter-btn" onclick="setFilter('resp',this)">🫁 التنفسي</button>
   <button class="filter-btn" onclick="setFilter('digest',this)">🦷 الهضمي</button>
-  <button class="filter-btn" onclick="setFilter('blood',this)">🩸 تحاليل الدم</button>
+  <button class="filter-btn" onclick="setFilter('blood',this)">🩸 الدم</button>
   <button class="filter-btn" onclick="setFilter('urinary',this)">💧 البولي</button>
   <button class="filter-btn" onclick="setFilter('endo',this)">⚗️ الغدد</button>
 </div>
 
-<!-- SCOREBOARD -->
-<div class="scoreboard">
-  <div class="score-grid">
-    <div class="score-card total"><div class="score-num" id="scTotal">0</div><div class="score-label">إجمالي الأسئلة</div></div>
-    <div class="score-card correct"><div class="score-num" id="scCorrect">0</div><div class="score-label">إجابات صح ✅</div></div>
-    <div class="score-card wrong"><div class="score-num" id="scWrong">0</div><div class="score-label">إجابات غلط ❌</div></div>
-    <div class="score-card pct"><div class="score-num" id="scPct">0%</div><div class="score-label">النسبة المئوية</div></div>
+<!-- QUIZ LIST -->
+<div class="quiz-list" id="quizList"></div>
+<div class="empty" id="emptyState"><div style="font-size:3rem;margin-bottom:12px">😅</div><div style="font-size:1.1rem;font-weight:700">مفيش أسئلة في الفلتر ده</div></div>
+<div class="results-screen" id="resultsScreen">
+  <span class="res-emoji" id="resEmoji">🎉</span>
+  <div class="res-title" id="resTitle"></div>
+  <div class="res-sub" id="resSub"></div>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-num" style="color:var(--accent)" id="rTotal"></div><div class="res-label">إجمالي الأسئلة</div></div>
+    <div class="res-card"><div class="res-num" style="color:var(--green)" id="rCorrect"></div><div class="res-label">إجابات صحيحة</div></div>
+    <div class="res-card"><div class="res-num" style="color:var(--purple)" id="rPct"></div><div class="res-label">نسبة النجاح</div></div>
   </div>
-</div>
-
-<!-- PROGRESS -->
-<div class="progress-wrap">
-  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="progress-label">
-    <span id="progLabel">ابدأ الاختبار</span>
-    <span id="progRight"></span>
-  </div>
-</div>
-
-<!-- QUIZ -->
-<div class="quiz-area">
-  <div class="q-card" id="qCard">
-    <div class="q-header">
-      <span class="q-num" id="qNum">سؤال 1</span>
-      <span class="q-sys-badge" id="qSys"></span>
-      <div class="q-text-wrap">
-        <div class="q-en" id="qEn"></div>
-        <div class="q-ar" id="qAr"></div>
-      </div>
-    </div>
-    <div class="options" id="optionsGrid"></div>
-    <div class="feedback" id="feedback">
-      <div class="fb-title" id="fbTitle"></div>
-      <div class="fb-correct-answer" id="fbCorrect"></div>
-      <div class="fb-explain" id="fbExplain"></div>
-    </div>
-    <div class="next-wrap" id="nextWrap">
-      <button class="next-btn" onclick="nextQuestion()">السؤال التالي ←</button>
-    </div>
-  </div>
-
-  <div class="empty" id="emptyState">
-    <div style="font-size:3rem;margin-bottom:12px">😅</div>
-    <div style="font-size:1.1rem;font-weight:700;margin-bottom:6px">مفيش أسئلة في الفلتر ده</div>
-    <div>اختار جهاز تاني</div>
-  </div>
-
-  <div class="results-screen" id="resultsScreen">
-    <span class="result-emoji" id="resEmoji">🎉</span>
-    <div class="result-title" id="resTitle"></div>
-    <div class="result-sub" id="resSub"></div>
-    <div class="result-stats">
-      <div class="rs-card"><div class="rs-num" style="color:var(--accent)" id="rTotal"></div><div class="rs-label">إجمالي الأسئلة</div></div>
-      <div class="rs-card"><div class="rs-num" style="color:var(--green)" id="rCorrect"></div><div class="rs-label">إجابات صحيحة</div></div>
-      <div class="rs-card"><div class="rs-num" style="color:var(--purple)" id="rPct"></div><div class="rs-label">نسبة النجاح</div></div>
-    </div>
-    <button class="restart-btn" onclick="restartQuiz()">🔄 إعادة الاختبار</button>
-    <button class="restart-btn outline" onclick="restartQuiz(true)">🔀 أسئلة جديدة عشوائية</button>
-  </div>
+  <button class="restart-btn" onclick="restartQuiz(false)">🔄 إعادة الاختبار</button>
+  <button class="restart-btn outline" onclick="restartQuiz(true)">🔀 ترتيب عشوائي</button>
 </div>
 
 <script>
-// ============================================================
-// DATA
-// ============================================================
 const SYSTEMS = {
-  cardio: { label: 'القلب والأوعية الدموية', icon: '🫀', color: '#f85149', bg: 'rgba(248,81,73,0.15)' },
-  resp:   { label: 'الجهاز التنفسي',         icon: '🫁', color: '#58a6ff', bg: 'rgba(88,166,255,0.15)' },
-  digest: { label: 'الجهاز الهضمي',          icon: '🦷', color: '#3fb950', bg: 'rgba(63,185,80,0.15)'  },
-  blood:  { label: 'تحاليل الدم',            icon: '🩸', color: '#bc8cff', bg: 'rgba(188,140,255,0.15)'},
-  urinary:{ label: 'الجهاز البولي',          icon: '💧', color: '#39c5cf', bg: 'rgba(57,197,207,0.15)' },
-  endo:   { label: 'الغدد الصماء',           icon: '⚗️', color: '#ffa657', bg: 'rgba(255,166,87,0.15)' },
+  cardio:  { label:'القلب والأوعية',  icon:'🫀', color:'#f85149', bg:'rgba(248,81,73,0.14)'   },
+  resp:    { label:'الجهاز التنفسي',  icon:'🫁', color:'#58a6ff', bg:'rgba(88,166,255,0.14)'  },
+  digest:  { label:'الجهاز الهضمي',   icon:'🦷', color:'#3fb950', bg:'rgba(63,185,80,0.14)'   },
+  blood:   { label:'تحاليل الدم',     icon:'🩸', color:'#bc8cff', bg:'rgba(188,140,255,0.14)' },
+  urinary: { label:'الجهاز البولي',   icon:'💧', color:'#39c5cf', bg:'rgba(57,197,207,0.14)'  },
+  endo:    { label:'الغدد الصماء',    icon:'⚗️', color:'#ffa657', bg:'rgba(255,166,87,0.14)'  },
 };
 
-const ALL_QUESTIONS = [
-  // ==================== CARDIO ====================
-  { sys:'cardio', type:'which_system',
-    en: 'Which of the following is the large artery that carries blood from the heart to the body?',
-    ar: 'أيٌّ مما يلي هو الشريان الكبير الذي يحمل الدم من القلب إلى الجسم؟',
-    correct: 'Aorta', correctAr: 'الأبهر',
-    options: [
-      {en:'Aorta',      ar:'الأبهر'},
-      {en:'Vein',       ar:'وريد'},
-      {en:'Capillary',  ar:'شعيرة دموية'},
-      {en:'Venule',     ar:'وُريد'},
-    ],
-    explain: 'الـ Aorta (الأبهر) هو أكبر شريان في الجسم، يخرج مباشرةً من البطين الأيسر للقلب ويوزع الدم المؤكسج على باقي الجسم.'
-  },
-  { sys:'cardio', type:'translate_en_ar',
-    en: 'What is the Arabic meaning of "Ventricle"?',
-    ar: 'ما المعنى العربي لمصطلح "Ventricle"؟',
-    correct: 'بطين', correctAr: 'بطين',
-    options: [
-      {en:'Atrium',    ar:'أذين'},
-      {en:'Ventricle', ar:'بطين'},
-      {en:'Valve',     ar:'صمام'},
-      {en:'Pulse',     ar:'نبض'},
-    ],
-    explain: 'Ventricle = بطين، وهو الغرفة السفلية في القلب. القلب له بطينان: أيمن يضخ الدم للرئتين، وأيسر يضخ الدم لباقي الجسم. أما Atrium = أذين وهي الغرفة العلوية.'
-  },
-  { sys:'cardio', type:'which_system',
-    en: 'Which term refers to the electrical node that initiates the heartbeat?',
-    ar: 'أي مصطلح يشير إلى العقدة الكهربائية التي تبدأ نبضات القلب؟',
-    correct: 'Sinoatrial (SA) node', correctAr: 'عقدة جيبية أذينية',
-    options: [
-      {en:'Myocardium',           ar:'عضل القلب'},
-      {en:'Pericardium',          ar:'التامور'},
-      {en:'Sinoatrial (SA) node', ar:'عقدة جيبية أذينية'},
-      {en:'Tricuspid valve',      ar:'الصمام الثلاثي الشرف'},
-    ],
-    explain: 'الـ SA node (العقدة الجيبية الأذينية) هي "باسميكر" القلب الطبيعي — توليد نبضات كهربائية تنتشر في عضلة القلب وتتحكم في معدل ضرباته.'
-  },
-  { sys:'cardio', type:'not_belong',
-    en: 'Which of the following does NOT belong to the cardiovascular system?',
-    ar: 'أيٌّ مما يلي لا ينتمي إلى جهاز القلب والأوعية الدموية؟',
-    correct: 'Alveolus', correctAr: 'سنخ',
-    options: [
-      {en:'Aorta',    ar:'الأبهر'},
-      {en:'Capillary',ar:'شعيرة دموية'},
-      {en:'Alveolus', ar:'سنخ'},
-      {en:'Ventricle',ar:'بطين'},
-    ],
-    explain: 'Alveolus (السنخ) ينتمي للجهاز التنفسي — هو الكيس الهوائي الصغير في الرئة حيث يتم تبادل الأكسجين وثاني أكسيد الكربون. أما الباقون فكلهم من مكونات جهاز القلب والأوعية.'
-  },
-  { sys:'cardio', type:'translate_en_ar',
-    en: 'What does "Systole" mean in Arabic?',
-    ar: 'ماذا يعني مصطلح "Systole" بالعربي؟',
-    correct: 'انقباض', correctAr: 'انقباض',
-    options: [
-      {en:'Systole',  ar:'انقباض'},
-      {en:'Pulse',    ar:'نبض'},
-      {en:'Vessel',   ar:'وعاء دموي'},
-      {en:'Arteriole',ar:'شُرين'},
-    ],
-    explain: 'Systole = انقباض القلب، وهي مرحلة ضخ الدم للخارج. عكسها Diastole = انبساط، وهي مرحلة امتلاء القلب بالدم. قياس ضغط الدم يأخذ الرقمين: مثلاً 120/80 حيث 120 هو الانقباضي.'
-  },
-  { sys:'cardio', type:'which_system',
-    en: 'The protective sac surrounding the heart is called?',
-    ar: 'الكيس الواقي المحيط بالقلب يُسمى؟',
-    correct: 'Pericardium', correctAr: 'التامور',
-    options: [
-      {en:'Myocardium',  ar:'عضل القلب'},
-      {en:'Pericardium', ar:'التامور'},
-      {en:'Pleura',      ar:'غشاء الجنب'},
-      {en:'Diaphragm',   ar:'الحجاب الحاجز'},
-    ],
-    explain: 'Pericardium (التامور) هو الغشاء الليفي المزدوج المحيط بالقلب — يحميه ويمنع احتكاكه مع الأعضاء المجاورة. أما Pleura = غشاء الجنب وهو يحيط بالرئتين، وMyocardium = عضلة القلب نفسها.'
-  },
+const ALL_Q = [
+  // ========== CARDIO (12) ==========
+  {sys:'cardio',en:'Which large artery carries oxygenated blood from the heart to the body?',ar:'أي شريان كبير يحمل الدم المؤكسج من القلب إلى الجسم؟',correct:'Aorta',correctAr:'الأبهر',opts:[{en:'Aorta',ar:'الأبهر'},{en:'Vein',ar:'وريد'},{en:'Capillary',ar:'شعيرة دموية'},{en:'Venule',ar:'وُريد'}],explain:'الـ Aorta (الأبهر) أكبر شريان في الجسم — يخرج من البطين الأيسر مباشرةً ويوزع الدم المؤكسج على كل أعضاء الجسم.'},
+  {sys:'cardio',en:'What is the Arabic meaning of "Ventricle"?',ar:'ما المعنى العربي لـ "Ventricle"؟',correct:'بطين',correctAr:'بطين',opts:[{en:'Atrium',ar:'أذين'},{en:'Ventricle',ar:'بطين'},{en:'Valve',ar:'صمام'},{en:'Pulse',ar:'نبض'}],explain:'Ventricle = بطين، الغرفة السفلية في القلب. القلب له بطينان: أيمن يضخ الدم للرئتين، وأيسر يضخ الدم لباقي الجسم.'},
+  {sys:'cardio',en:'Which electrical node initiates the heartbeat?',ar:'أي عقدة كهربائية تبدأ نبضات القلب؟',correct:'Sinoatrial (SA) node',correctAr:'العقدة الجيبية الأذينية',opts:[{en:'Myocardium',ar:'عضل القلب'},{en:'Pericardium',ar:'التامور'},{en:'Sinoatrial (SA) node',ar:'العقدة الجيبية الأذينية'},{en:'Tricuspid valve',ar:'الصمام الثلاثي الشرف'}],explain:'SA node هي "باسميكر" القلب الطبيعي — تولّد نبضات كهربائية تنتشر في عضلة القلب وتتحكم في معدل ضرباته.'},
+  {sys:'cardio',en:'Which does NOT belong to the cardiovascular system?',ar:'أيٌّ مما يلي لا ينتمي لجهاز القلب والأوعية؟',correct:'Alveolus',correctAr:'سنخ',opts:[{en:'Aorta',ar:'الأبهر'},{en:'Capillary',ar:'شعيرة دموية'},{en:'Alveolus',ar:'سنخ'},{en:'Ventricle',ar:'بطين'}],explain:'Alveolus (السنخ) ينتمي للجهاز التنفسي — هو الكيس الهوائي الصغير في الرئة حيث يحدث تبادل الغازات.'},
+  {sys:'cardio',en:'What does "Systole" mean?',ar:'ماذا يعني "Systole"؟',correct:'انقباض',correctAr:'انقباض',opts:[{en:'Systole',ar:'انقباض'},{en:'Pulse',ar:'نبض'},{en:'Vessel',ar:'وعاء دموي'},{en:'Arteriole',ar:'شُرين'}],explain:'Systole = انقباض القلب — مرحلة ضخ الدم للخارج. عكسها Diastole = انبساط. ضغط الدم 120/80 حيث 120 هو الانقباضي.'},
+  {sys:'cardio',en:'The protective sac surrounding the heart is called?',ar:'الكيس الواقي المحيط بالقلب يُسمى؟',correct:'Pericardium',correctAr:'التامور',opts:[{en:'Myocardium',ar:'عضل القلب'},{en:'Pericardium',ar:'التامور'},{en:'Pleura',ar:'غشاء الجنب'},{en:'Diaphragm',ar:'الحجاب الحاجز'}],explain:'Pericardium (التامور) هو الغشاء الليفي المزدوج المحيط بالقلب — يحميه ويمنع احتكاكه مع الأعضاء المجاورة.'},
+  {sys:'cardio',en:'What is the Arabic meaning of "Capillary"?',ar:'ما المعنى العربي لـ "Capillary"؟',correct:'شعيرة دموية',correctAr:'شعيرة دموية',opts:[{en:'Artery',ar:'شريان'},{en:'Vein',ar:'وريد'},{en:'Capillary',ar:'شعيرة دموية'},{en:'Arteriole',ar:'شُرين'}],explain:'Capillary (الشعيرة الدموية) أدق الأوعية الدموية — جدرانها رقيقة جداً لتسمح بتبادل الأكسجين والمواد الغذائية مع خلايا الجسم.'},
+  {sys:'cardio',en:'Which term means "small vein"?',ar:'أي مصطلح يعني "وريد صغير"؟',correct:'Venule',correctAr:'وُريد',opts:[{en:'Vein',ar:'وريد'},{en:'Venule',ar:'وُريد'},{en:'Vessel',ar:'وعاء دموي'},{en:'Arteriole',ar:'شُرين'}],explain:'Venule (وُريد) هو الوريد الصغير الذي يجمع الدم من الشعيرات الدموية ويصبّه في الأوردة الكبيرة. Arteriole (شُرين) هو الشريان الصغير المقابل.'},
+  {sys:'cardio',en:'The valve between the right atrium and right ventricle is?',ar:'الصمام بين الأذين الأيمن والبطين الأيمن هو؟',correct:'Tricuspid valve',correctAr:'الصمام الثلاثي الشرف',opts:[{en:'Tricuspid valve',ar:'الصمام الثلاثي الشرف'},{en:'Aorta',ar:'الأبهر'},{en:'Myocardium',ar:'عضل القلب'},{en:'Pericardium',ar:'التامور'}],explain:'Tricuspid valve (الصمام الثلاثي الشرف) سُمّي كذلك لأنه يتكون من 3 وريقات — يمنع ارتجاع الدم من البطين الأيمن للأذين الأيمن.'},
+  {sys:'cardio',en:'What does "Myocardium" refer to?',ar:'ماذا يعني مصطلح "Myocardium"؟',correct:'عضل القلب',correctAr:'عضل القلب',opts:[{en:'Pericardium',ar:'التامور'},{en:'Myocardium',ar:'عضل القلب'},{en:'Atrium',ar:'أذين'},{en:'Valve',ar:'صمام'}],explain:'Myocardium = عضلة القلب نفسها — هي الطبقة العضلية السميكة المسؤولة عن الانقباض وضخ الدم. "Myo" = عضلة، "Cardium" = قلب.'},
+  {sys:'cardio',en:'Which vein carries blood from the lower body to the heart?',ar:'أي وريد يحمل الدم من الجزء السفلي للجسم إلى القلب؟',correct:'Inferior vena cava',correctAr:'الوريد الأجوف السفلي',opts:[{en:'Superior vena cava',ar:'الوريد الأجوف العلوي'},{en:'Inferior vena cava',ar:'الوريد الأجوف السفلي'},{en:'Aorta',ar:'الأبهر'},{en:'Arteriole',ar:'شُرين'}],explain:'Inferior vena cava (الوريد الأجوف السفلي) يجمع الدم من الأجزاء السفلية للجسم ويصبّه في الأذين الأيمن. أما Superior vena cava فيجمع من الرأس والذراعين.'},
+  {sys:'cardio',en:'What is a "Vessel" in the cardiovascular context?',ar:'ما معنى "Vessel" في سياق القلب والأوعية؟',correct:'وعاء دموي',correctAr:'وعاء دموي',opts:[{en:'Vessel',ar:'وعاء دموي'},{en:'Pulse',ar:'نبض'},{en:'Atrium',ar:'أذين'},{en:'Systole',ar:'انقباض'}],explain:'Vessel (الوعاء الدموي) المصطلح العام لأي أنبوب يحمل الدم في الجسم — يشمل الشرايين والأوردة والشعيرات الدموية.'},
 
-  // ==================== RESPIRATORY ====================
-  { sys:'resp', type:'translate_en_ar',
-    en: 'What is the Arabic meaning of "Diaphragm"?',
-    ar: 'ما المعنى العربي لـ "Diaphragm"؟',
-    correct: 'الحجاب الحاجز', correctAr: 'الحجاب الحاجز',
-    options: [
-      {en:'Pleura',     ar:'غشاء الجنب'},
-      {en:'Diaphragm',  ar:'الحجاب الحاجز'},
-      {en:'Trachea',    ar:'القصبة الهوائية'},
-      {en:'Epiglottis', ar:'لسان المزمار'},
-    ],
-    explain: 'Diaphragm (الحجاب الحاجز) هو العضلة الرئيسية للتنفس — تنبسط للأسفل عند الشهيق فتكبّر حجم الصدر وتسمح للرئتين بالتمدد، وتنقبض للأعلى عند الزفير.'
-  },
-  { sys:'resp', type:'not_belong',
-    en: 'Which of the following does NOT belong to the respiratory system?',
-    ar: 'أيٌّ مما يلي لا ينتمي إلى الجهاز التنفسي؟',
-    correct: 'Bile', correctAr: 'الصفراء',
-    options: [
-      {en:'Alveolus', ar:'سنخ'},
-      {en:'Bronchus', ar:'شعبة هوائية'},
-      {en:'Bile',     ar:'الصفراء'},
-      {en:'Trachea',  ar:'القصبة الهوائية'},
-    ],
-    explain: 'Bile (الصفراء) ينتمي للجهاز الهضمي — هو سائل تُفرزه الكبد ويُخزَّن في المرارة ويساعد في هضم الدهون. أما Alveolus وBronchus وTrachea فكلها مكونات الجهاز التنفسي.'
-  },
-  { sys:'resp', type:'which_system',
-    en: 'Which structure prevents food from entering the airway during swallowing?',
-    ar: 'أي تركيب يمنع دخول الطعام إلى مجرى الهواء أثناء البلع؟',
-    correct: 'Epiglottis', correctAr: 'لسان المزمار',
-    options: [
-      {en:'Larynx',     ar:'الحنجرة'},
-      {en:'Pharynx',    ar:'البلعوم'},
-      {en:'Epiglottis', ar:'لسان المزمار'},
-      {en:'Trachea',    ar:'القصبة الهوائية'},
-    ],
-    explain: 'Epiglottis (لسان المزمار) هو صفيحة غضروفية تعمل كصمام — عند البلع تغلق مدخل الحنجرة لمنع دخول الطعام أو السائل للرئتين. لو فشل هذا الصمام حدث الاختناق.'
-  },
-  { sys:'resp', type:'translate_en_ar',
-    en: 'What does "Expiration" mean in the respiratory context?',
-    ar: 'ماذا يعني مصطلح "Expiration" في سياق الجهاز التنفسي؟',
-    correct: 'زفير', correctAr: 'زفير',
-    options: [
-      {en:'Inspiration', ar:'شهيق'},
-      {en:'Expiration',  ar:'زفير'},
-      {en:'Sputum',      ar:'بلغم'},
-      {en:'Surfactant',  ar:'فاعل بالسطح'},
-    ],
-    explain: 'Expiration = زفير = إخراج الهواء من الرئتين. عكسه Inspiration = شهيق = استنشاق الهواء. الزفير يزيل ثاني أكسيد الكربون من الجسم بينما الشهيق يجلب الأكسجين.'
-  },
-  { sys:'resp', type:'which_system',
-    en: 'The tiny air sacs in the lungs where gas exchange occurs are called?',
-    ar: 'الأكياس الهوائية الصغيرة في الرئتين حيث يحدث تبادل الغازات تسمى؟',
-    correct: 'Alveolus', correctAr: 'سنخ',
-    options: [
-      {en:'Bronchus',  ar:'شعبة هوائية'},
-      {en:'Alveolus',  ar:'سنخ'},
-      {en:'Sinus',     ar:'جيب'},
-      {en:'Pleura',    ar:'غشاء الجنب'},
-    ],
-    explain: 'Alveolus (السنخ) هو الوحدة الوظيفية للتبادل الغازي في الرئة — رئة الإنسان تحتوي على ~300 مليون سنخ! جدرانها رقيقة جداً تحيط بها الشعيرات الدموية لتسهيل مرور O2 وCO2.'
-  },
-  { sys:'resp', type:'not_belong',
-    en: 'Which does NOT belong to the respiratory system?',
-    ar: 'أيٌّ مما يلي لا ينتمي للجهاز التنفسي؟',
-    correct: 'Kidney', correctAr: 'كلية',
-    options: [
-      {en:'Vocal cords', ar:'حبال صوتية'},
-      {en:'Pharynx',     ar:'بلعوم'},
-      {en:'Kidney',      ar:'كلية'},
-      {en:'Adenoids',    ar:'اللحمية'},
-    ],
-    explain: 'Kidney (الكلية) تنتمي للجهاز البولي وليس التنفسي. أما Vocal cords وPharynx وAdenoids فكلها مكونات مسالك الجهاز التنفسي العلوي.'
-  },
+  // ========== RESPIRATORY (12) ==========
+  {sys:'resp',en:'What is the Arabic meaning of "Diaphragm"?',ar:'ما المعنى العربي لـ "Diaphragm"؟',correct:'الحجاب الحاجز',correctAr:'الحجاب الحاجز',opts:[{en:'Pleura',ar:'غشاء الجنب'},{en:'Diaphragm',ar:'الحجاب الحاجز'},{en:'Trachea',ar:'القصبة الهوائية'},{en:'Epiglottis',ar:'لسان المزمار'}],explain:'Diaphragm (الحجاب الحاجز) العضلة الرئيسية للتنفس — تنبسط للأسفل عند الشهيق لتكبّر حجم الصدر وتُمكّن الرئتين من التمدد.'},
+  {sys:'resp',en:'Which does NOT belong to the respiratory system?',ar:'أيٌّ مما يلي لا ينتمي للجهاز التنفسي؟',correct:'Bile',correctAr:'الصفراء',opts:[{en:'Alveolus',ar:'سنخ'},{en:'Bronchus',ar:'شعبة هوائية'},{en:'Bile',ar:'الصفراء'},{en:'Trachea',ar:'القصبة الهوائية'}],explain:'Bile (الصفراء) ينتمي للجهاز الهضمي — سائل تُفرزه الكبد ويُخزَّن في المرارة لمساعدة هضم الدهون.'},
+  {sys:'resp',en:'Which structure prevents food from entering the airway?',ar:'أي تركيب يمنع دخول الطعام لمجرى الهواء؟',correct:'Epiglottis',correctAr:'لسان المزمار',opts:[{en:'Larynx',ar:'الحنجرة'},{en:'Pharynx',ar:'البلعوم'},{en:'Epiglottis',ar:'لسان المزمار'},{en:'Trachea',ar:'القصبة الهوائية'}],explain:'Epiglottis (لسان المزمار) صفيحة غضروفية تعمل كصمام — عند البلع تغلق مدخل الحنجرة لمنع دخول الطعام للرئتين.'},
+  {sys:'resp',en:'What does "Expiration" mean?',ar:'ماذا يعني "Expiration" في التنفس؟',correct:'زفير',correctAr:'زفير',opts:[{en:'Inspiration',ar:'شهيق'},{en:'Expiration',ar:'زفير'},{en:'Sputum',ar:'بلغم'},{en:'Surfactant',ar:'فاعل بالسطح'}],explain:'Expiration = زفير = إخراج الهواء من الرئتين لإزالة CO2. عكسه Inspiration = شهيق = استنشاق الهواء لإدخال O2.'},
+  {sys:'resp',en:'The tiny air sacs in the lungs where gas exchange occurs are called?',ar:'الأكياس الهوائية الصغيرة للتبادل الغازي في الرئتين؟',correct:'Alveolus',correctAr:'سنخ',opts:[{en:'Bronchus',ar:'شعبة هوائية'},{en:'Alveolus',ar:'سنخ'},{en:'Sinus',ar:'جيب'},{en:'Pleura',ar:'غشاء الجنب'}],explain:'Alveolus (السنخ) الوحدة الوظيفية للتبادل الغازي — الرئة تحتوي ~300 مليون سنخ! جدرانها رقيقة جداً لتسهيل مرور O2 وCO2.'},
+  {sys:'resp',en:'Which does NOT belong to the respiratory system?',ar:'أيٌّ منهم لا ينتمي للجهاز التنفسي؟',correct:'Kidney',correctAr:'كلية',opts:[{en:'Vocal cords',ar:'حبال صوتية'},{en:'Pharynx',ar:'بلعوم'},{en:'Kidney',ar:'كلية'},{en:'Adenoids',ar:'اللحمية'}],explain:'Kidney (الكلية) تنتمي للجهاز البولي. أما Vocal cords وPharynx وAdenoids فكلها مكونات الجهاز التنفسي العلوي.'},
+  {sys:'resp',en:'What is the Arabic meaning of "Trachea"?',ar:'ما المعنى العربي لـ "Trachea"؟',correct:'القصبة الهوائية',correctAr:'القصبة الهوائية',opts:[{en:'Larynx',ar:'الحنجرة'},{en:'Bronchus',ar:'شعبة هوائية'},{en:'Trachea',ar:'القصبة الهوائية'},{en:'Pharynx',ar:'بلعوم'}],explain:'Trachea (القصبة الهوائية) هي الأنبوب الغضروفي الذي يمتد من الحنجرة للرئتين — تتفرع إلى شعبتين هوائيتين (Bronchus) لكل رئة.'},
+  {sys:'resp',en:'The membrane surrounding the lungs is called?',ar:'الغشاء المحيط بالرئتين يُسمى؟',correct:'Pleura',correctAr:'غشاء الجنب',opts:[{en:'Pericardium',ar:'التامور'},{en:'Pleura',ar:'غشاء الجنب'},{en:'Diaphragm',ar:'الحجاب الحاجز'},{en:'Surfactant',ar:'فاعل بالسطح'}],explain:'Pleura (غشاء الجنب) غشاء من طبقتين يحيط بكل رئة — السائل بينهما يمنع الاحتكاك أثناء التنفس. التهابه يُسمى Pleuritis.'},
+  {sys:'resp',en:'What does "Sputum" mean?',ar:'ماذا يعني "Sputum"؟',correct:'بلغم',correctAr:'بلغم',opts:[{en:'Surfactant',ar:'فاعل بالسطح'},{en:'Sputum',ar:'بلغم'},{en:'Sinus',ar:'جيب'},{en:'Oxygen',ar:'أكسجين'}],explain:'Sputum (البلغم) إفراز مخاطي من الجهاز التنفسي — زيادته ولونه مهمان في تشخيص الأمراض (أصفر/أخضر = عدوى بكتيرية، مدمى = أمراض خطيرة).'},
+  {sys:'resp',en:'Which term refers to the voice box?',ar:'أي مصطلح يشير إلى صندوق الصوت؟',correct:'Larynx',correctAr:'الحنجرة',opts:[{en:'Pharynx',ar:'البلعوم'},{en:'Trachea',ar:'القصبة الهوائية'},{en:'Larynx',ar:'الحنجرة'},{en:'Bronchus',ar:'شعبة هوائية'}],explain:'Larynx (الحنجرة) تحتوي على الحبال الصوتية (Vocal cords) — عند مرور الهواء عبرها تهتز وتُنتج الصوت. التهابها يسبب بحّة الصوت.'},
+  {sys:'resp',en:'What is the Arabic meaning of "Inspiration"?',ar:'ما المعنى العربي لـ "Inspiration" في التنفس؟',correct:'شهيق',correctAr:'شهيق',opts:[{en:'Expiration',ar:'زفير'},{en:'Inspiration',ar:'شهيق'},{en:'Sputum',ar:'بلغم'},{en:'Pleura',ar:'غشاء الجنب'}],explain:'Inspiration = شهيق = استنشاق الهواء للرئتين. يحدث عندما ينقبض الحجاب الحاجز ويتسع تجويف الصدر، فيدخل الهواء بفعل فرق الضغط.'},
+  {sys:'resp',en:'Surfactant in the lungs is responsible for?',ar:'"Surfactant" في الرئتين مسؤول عن؟',correct:'فاعل بالسطح',correctAr:'فاعل بالسطح — يمنع انهيار الأسناخ',opts:[{en:'Adenoids',ar:'اللحمية'},{en:'Nasal septum',ar:'الحاجز الأنفي'},{en:'Phrenic nerve',ar:'العصب الحجابي'},{en:'Surfactant',ar:'فاعل بالسطح'}],explain:'Surfactant (الفاعل بالسطح) مادة دهنية تُغطّي جدران الأسناخ لتقليل التوتر السطحي ومنع انهيارها. نقصه عند الخدّج يسبب متلازمة ضائقة التنفس.'},
 
-  // ==================== DIGESTIVE ====================
-  { sys:'digest', type:'translate_en_ar',
-    en: 'What is the Arabic meaning of "Duodenum"?',
-    ar: 'ما المعنى العربي لـ "Duodenum"؟',
-    correct: 'الإثنا عشر', correctAr: 'الإثنا عشر',
-    options: [
-      {en:'Jejunum',  ar:'الصائم'},
-      {en:'Ileum',    ar:'اللفائفي'},
-      {en:'Duodenum', ar:'الإثنا عشر'},
-      {en:'Cecum',    ar:'الأعور'},
-    ],
-    explain: 'Duodenum (الإثنا عشر) هو الجزء الأول والأقصر من الأمعاء الدقيقة — اسمه يعني "اثنا عشر إصبعاً" لأن طوله تقريباً 12 إصبعاً. هنا يصل إفراز البنكرياس والمرارة لمساعدة الهضم.'
-  },
-  { sys:'digest', type:'which_system',
-    en: 'Which organ stores bile and releases it to help digest fats?',
-    ar: 'أي عضو يخزّن الصفراء ويفرزها لمساعدة هضم الدهون؟',
-    correct: 'Gallbladder', correctAr: 'المرارة',
-    options: [
-      {en:'Liver',      ar:'كبد'},
-      {en:'Pancreas',   ar:'البنكرياس'},
-      {en:'Gallbladder',ar:'المرارة'},
-      {en:'Stomach',    ar:'معدة'},
-    ],
-    explain: 'Gallbladder (المرارة) تخزّن الصفراء التي تُنتجها الكبد، وتفرزها في الإثنا عشر عند الأكل لتساعد على تفتيت الدهون. الكبد هي من تصنع الصفراء، والمرارة من تخزنها فقط.'
-  },
-  { sys:'digest', type:'not_belong',
-    en: 'Which does NOT belong to the digestive system structure?',
-    ar: 'أيٌّ مما يلي لا ينتمي لتركيب الجهاز الهضمي؟',
-    correct: 'Ureter', correctAr: 'حالب',
-    options: [
-      {en:'Esophagus', ar:'المريء'},
-      {en:'Rectum',    ar:'المستقيم'},
-      {en:'Ureter',    ar:'حالب'},
-      {en:'Colon',     ar:'قولون'},
-    ],
-    explain: 'Ureter (الحالب) ينتمي للجهاز البولي — هو الأنبوب الذي يربط الكلية بالمثانة البولية. أما Esophagus وRectum وColon فكلها من مكونات الجهاز الهضمي.'
-  },
-  { sys:'digest', type:'which_system',
-    en: 'Which digestive disease is characterized by inflammation and thickening of the intestinal wall?',
-    ar: 'أي أمراض الجهاز الهضمي يتميز بالتهاب وسماكة جدار الأمعاء؟',
-    correct: 'Crohn disease', correctAr: 'داء كرون',
-    options: [
-      {en:'Appendicitis',      ar:'التهاب الزائدة'},
-      {en:'Crohn disease',     ar:'داء كرون'},
-      {en:'Ulcerative colitis',ar:'التهاب القولون التقرحي'},
-      {en:'Gastroenteritis',   ar:'التهاب المعدة والأمعاء'},
-    ],
-    explain: 'Crohn disease (داء كرون) مرض التهابي مزمن يمكن أن يصيب أي جزء من الجهاز الهضمي من الفم للشرج، لكنه يؤثر غالباً على نهاية الأمعاء الدقيقة (اللفائفي). يختلف عن Ulcerative colitis الذي يقتصر على القولون.'
-  },
-  { sys:'digest', type:'translate_en_ar',
-    en: 'What does "Jaundice" mean?',
-    ar: 'ماذا يعني مصطلح "Jaundice"؟',
-    correct: 'مرض الصفراء (اليرقان)', correctAr: 'اليرقان',
-    options: [
-      {en:'Nausea',   ar:'غثيان'},
-      {en:'Hernia',   ar:'فتق'},
-      {en:'Jaundice', ar:'مرض الصفراء (اليرقان)'},
-      {en:'Fistula',  ar:'ناسور'},
-    ],
-    explain: 'Jaundice (اليرقان) حالة تُسبب اصفرار الجلد وبياض العينين بسبب تراكم البيليروبين في الدم. أسبابه متعددة: التهاب الكبد، تليف الكبد، انسداد قنوات الصفراء، أو تكسر خلايا الدم الحمراء.'
-  },
-  { sys:'digest', type:'not_belong',
-    en: 'Which is NOT a disease of the digestive system?',
-    ar: 'أيٌّ مما يلي ليس من أمراض الجهاز الهضمي؟',
-    correct: 'Pneumonia', correctAr: 'التهاب رئوي',
-    options: [
-      {en:'Hepatitis',  ar:'التهاب الكبد'},
-      {en:'Cirrhosis',  ar:'تليف'},
-      {en:'Pneumonia',  ar:'التهاب رئوي'},
-      {en:'Hemorrhoids',ar:'بواسير'},
-    ],
-    explain: 'Pneumonia (الالتهاب الرئوي) هو مرض يصيب الجهاز التنفسي وليس الهضمي. أما Hepatitis (التهاب الكبد) وCirrhosis (التليف) وHemorrhoids (البواسير) فكلها أمراض هضمية.'
-  },
+  // ========== DIGESTIVE (14) ==========
+  {sys:'digest',en:'What is the Arabic meaning of "Duodenum"?',ar:'ما المعنى العربي لـ "Duodenum"؟',correct:'الإثنا عشر',correctAr:'الإثنا عشر',opts:[{en:'Jejunum',ar:'الصائم'},{en:'Ileum',ar:'اللفائفي'},{en:'Duodenum',ar:'الإثنا عشر'},{en:'Cecum',ar:'الأعور'}],explain:'Duodenum (الإثنا عشر) الجزء الأول من الأمعاء الدقيقة — سُمّي كذلك لأن طوله ~12 إصبعاً. هنا يصل إفراز البنكرياس والمرارة.'},
+  {sys:'digest',en:'Which organ stores bile?',ar:'أي عضو يخزّن الصفراء؟',correct:'Gallbladder',correctAr:'المرارة',opts:[{en:'Liver',ar:'كبد'},{en:'Pancreas',ar:'البنكرياس'},{en:'Gallbladder',ar:'المرارة'},{en:'Stomach',ar:'معدة'}],explain:'Gallbladder (المرارة) تخزّن الصفراء التي تُنتجها الكبد — تُفرزها عند الأكل لتساعد في تفتيت الدهون في الإثنا عشر.'},
+  {sys:'digest',en:'Which does NOT belong to the digestive system structure?',ar:'أيٌّ مما يلي لا ينتمي لتركيب الجهاز الهضمي؟',correct:'Ureter',correctAr:'حالب',opts:[{en:'Esophagus',ar:'المريء'},{en:'Rectum',ar:'المستقيم'},{en:'Ureter',ar:'حالب'},{en:'Colon',ar:'قولون'}],explain:'Ureter (الحالب) ينتمي للجهاز البولي — الأنبوب الذي يربط الكلية بالمثانة. أما Esophagus وRectum وColon فهضمية.'},
+  {sys:'digest',en:'What does "Jaundice" mean?',ar:'ماذا يعني "Jaundice"؟',correct:'مرض الصفراء (اليرقان)',correctAr:'اليرقان',opts:[{en:'Nausea',ar:'غثيان'},{en:'Hernia',ar:'فتق'},{en:'Jaundice',ar:'مرض الصفراء (اليرقان)'},{en:'Fistula',ar:'ناسور'}],explain:'Jaundice (اليرقان) اصفرار الجلد وبياض العينين بسبب تراكم البيليروبين — أسبابه: التهاب الكبد، التليف، انسداد قنوات الصفراء.'},
+  {sys:'digest',en:'Which is NOT a disease of the digestive system?',ar:'أيٌّ مما يلي ليس من أمراض الجهاز الهضمي؟',correct:'Pneumonia',correctAr:'التهاب رئوي',opts:[{en:'Hepatitis',ar:'التهاب الكبد'},{en:'Cirrhosis',ar:'تليف'},{en:'Pneumonia',ar:'التهاب رئوي'},{en:'Hemorrhoids',ar:'بواسير'}],explain:'Pneumonia (الالتهاب الرئوي) مرض في الجهاز التنفسي. أما Hepatitis وCirrhosis وHemorrhoids فكلها أمراض هضمية.'},
+  {sys:'digest',en:'What is the Arabic meaning of "Esophagus"?',ar:'ما المعنى العربي لـ "Esophagus"؟',correct:'المريء',correctAr:'المريء',opts:[{en:'Stomach',ar:'معدة'},{en:'Esophagus',ar:'المريء'},{en:'Colon',ar:'قولون'},{en:'Rectum',ar:'المستقيم'}],explain:'Esophagus (المريء) الأنبوب العضلي الذي يربط البلعوم بالمعدة — يدفع الطعام للأسفل بحركات تمعجية. طوله ~25 سم.'},
+  {sys:'digest',en:'Which part of the large intestine is first?',ar:'أي جزء من الأمعاء الغليظة يأتي أولاً؟',correct:'Cecum',correctAr:'الأعور',opts:[{en:'Rectum',ar:'المستقيم'},{en:'Colon',ar:'قولون'},{en:'Cecum',ar:'الأعور'},{en:'Anus',ar:'الشرج'}],explain:'Cecum (الأعور) هو بداية الأمعاء الغليظة — وهو الجزء الذي تتصل به الزائدة الدودية (Appendix).'},
+  {sys:'digest',en:'What does "Hepatomegaly" mean?',ar:'ماذا يعني "Hepatomegaly"؟',correct:'تضخم الكبد',correctAr:'تضخم الكبد',opts:[{en:'Hepatitis',ar:'التهاب الكبد'},{en:'Hepatomegaly',ar:'تضخم الكبد'},{en:'Cirrhosis',ar:'تليف'},{en:'Ascites',ar:'استسقاء'}],explain:'Hepatomegaly (تضخم الكبد) = تضخم الكبد عن حجمه الطبيعي. "Hepato" = كبد، "megaly" = تضخم. أسبابه عديدة: التهابات، تليف، سرطان.'},
+  {sys:'digest',en:'The condition of fluid accumulation in the abdomen is?',ar:'حالة تراكم السائل في تجويف البطن تُسمى؟',correct:'Ascites',correctAr:'استسقاء',opts:[{en:'Cirrhosis',ar:'تليف'},{en:'Ascites',ar:'استسقاء'},{en:'Hernia',ar:'فتق'},{en:'Fistula',ar:'ناسور'}],explain:'Ascites (الاستسقاء) تراكم سائل في تجويف البطن — سبب شائع: تليف الكبد الذي يرفع الضغط في الوريد البابي ويُسرّب السوائل.'},
+  {sys:'digest',en:'What does "Dysphagia" mean?',ar:'ماذا يعني "Dysphagia"؟',correct:'عسر البلع',correctAr:'عسر البلع',opts:[{en:'Emesis',ar:'قيء'},{en:'Nausea',ar:'غثيان'},{en:'Dysphagia',ar:'عسر البلع'},{en:'Diarrhea',ar:'إسهال'}],explain:'Dysphagia (عسر البلع) صعوبة في البلع — قد تكون ناجمة عن مشاكل في المريء أو الحنجرة أو الجهاز العصبي.'},
+  {sys:'digest',en:'Inflammation of the pancreas is called?',ar:'التهاب البنكرياس يُسمى؟',correct:'Pancreatitis',correctAr:'التهاب البنكرياس',opts:[{en:'Appendicitis',ar:'التهاب الزائدة'},{en:'Cholecystitis',ar:'التهاب المرارة'},{en:'Pancreatitis',ar:'التهاب البنكرياس'},{en:'Gastroenteritis',ar:'التهاب المعدة والأمعاء'}],explain:'Pancreatitis (التهاب البنكرياس) حالة خطيرة — الإنزيمات الهاضمة تنشط داخل البنكرياس وتبدأ تهضمه! أسبابه الرئيسية: الكحول وحصوات المرارة.'},
+  {sys:'digest',en:'What is the Arabic meaning of "Cirrhosis"?',ar:'ما المعنى العربي لـ "Cirrhosis"؟',correct:'تليف',correctAr:'تليف الكبد',opts:[{en:'Hepatitis',ar:'التهاب الكبد'},{en:'Cirrhosis',ar:'تليف'},{en:'Jaundice',ar:'اليرقان'},{en:'Ascites',ar:'استسقاء'}],explain:'Cirrhosis (التليف) تندّب الكبد وفقدانه لوظيفته تدريجياً — أسبابه: التهاب الكبد المزمن والكحول. النسيج السليم يُستبدل بنسيج ليفي لا يعمل.'},
+  {sys:'digest',en:'A peptic ulcer is?',ar:'"Peptic ulcer" هو؟',correct:'قرحة معوية',correctAr:'قرحة معوية',opts:[{en:'Gastroenteritis',ar:'التهاب المعدة والأمعاء'},{en:'Peptic ulcer',ar:'قرحة معوية'},{en:'Crohn disease',ar:'داء كرون'},{en:'Diverticulitis',ar:'التهاب الرتوج'}],explain:'Peptic ulcer (القرحة المعوية) تقرح في بطانة المعدة أو الإثنا عشر — أشهر أسبابها بكتيريا H. pylori وكثرة استخدام المضادات الحيوية والمسكنات.'},
+  {sys:'digest',en:'What is the last part of the large intestine before the anus?',ar:'ما الجزء الأخير من الأمعاء الغليظة قبل الشرج؟',correct:'Rectum',correctAr:'المستقيم',opts:[{en:'Colon',ar:'قولون'},{en:'Cecum',ar:'الأعور'},{en:'Rectum',ar:'المستقيم'},{en:'Ileum',ar:'اللفائفي'}],explain:'Rectum (المستقيم) الجزء الأخير من الأمعاء الغليظة — يخزّن الفضلات قبل إخراجها عبر الشرج (Anus). طوله ~12-15 سم.'},
 
-  // ==================== BLOOD ====================
-  { sys:'blood', type:'translate_en_ar',
-    en: 'What does "CBC" stand for?',
-    ar: 'ماذا تعني اختصار "CBC" في تحاليل الدم؟',
-    correct: 'عد الدم الكامل', correctAr: 'عد الدم الكامل',
-    options: [
-      {en:'ESR',  ar:'سرعة تثفل الخلايا الحمراء'},
-      {en:'CBC',  ar:'عد الدم الكامل'},
-      {en:'MCV',  ar:'الحجم الكروي الوسطي'},
-      {en:'MCH',  ar:'هيموغلوبين الكرية الوسطي'},
-    ],
-    explain: 'CBC = Complete Blood Count = عد الدم الكامل. هو أشهر تحليل دم — يقيس: RBC (خلايا حمراء)، WBC (خلايا بيضاء)، Hemoglobin، Hematocrit، وPlatelets. يساعد في تشخيص الأنيميا والعدوى والأمراض الدموية.'
-  },
-  { sys:'blood', type:'which_system',
-    en: 'Which blood test measures the rate at which red blood cells settle?',
-    ar: 'أي تحليل دم يقيس معدل ترسب خلايا الدم الحمراء؟',
-    correct: 'ESR', correctAr: 'سرعة تثفل الخلايا الحمراء',
-    options: [
-      {en:'RBC count', ar:'خلايا الدم الحمراء'},
-      {en:'Hematocrit',ar:'الهيماتوكريت'},
-      {en:'ESR',       ar:'سرعة تثفل الخلايا الحمراء'},
-      {en:'MCHC',      ar:'تركيز هيموغلوبين الكرية الوسطي'},
-    ],
-    explain: 'ESR = Erythrocyte Sedimentation Rate = سرعة تثفل الكريات الحمراء. يُستخدم كمؤشر غير نوعي للالتهاب في الجسم — ارتفاعه يدل على وجود التهاب أو عدوى أو مرض مزمن، لكنه لا يحدد المكان.'
-  },
-  { sys:'blood', type:'translate_en_ar',
-    en: 'What does "Hemoglobin" transport in the blood?',
-    ar: 'ماذا ينقل "Hemoglobin" في الدم؟',
-    correct: 'الهيموغلوبين', correctAr: 'الهيموغلوبين - ناقل الأكسجين',
-    options: [
-      {en:'Hematocrit',ar:'الهيماتوكريت'},
-      {en:'Hemoglobin',ar:'الهيموغلوبين — ناقل الأكسجين'},
-      {en:'WBC count', ar:'خلايا الدم البيضاء'},
-      {en:'ESR',       ar:'سرعة التثفل'},
-    ],
-    explain: 'Hemoglobin (الهيموغلوبين) هو البروتين الأحمر الموجود في كريات الدم الحمراء — يرتبط بالأكسجين في الرئتين وينقله لخلايا الجسم، ثم يحمل CO2 للعودة للرئتين. انخفاضه يسبب الأنيميا.'
-  },
+  // ========== BLOOD (10) ==========
+  {sys:'blood',en:'What does "CBC" stand for?',ar:'ماذا تعني "CBC"؟',correct:'عد الدم الكامل',correctAr:'عد الدم الكامل',opts:[{en:'ESR',ar:'سرعة تثفل الخلايا'},{en:'CBC',ar:'عد الدم الكامل'},{en:'MCV',ar:'الحجم الكروي الوسطي'},{en:'MCH',ar:'هيموغلوبين الكرية الوسطي'}],explain:'CBC = Complete Blood Count = عد الدم الكامل — أشهر تحليل دم يقيس: RBC وWBC وHemoglobin وHematocrit وPlatelets.'},
+  {sys:'blood',en:'Which blood test measures the rate red blood cells settle?',ar:'أي تحليل يقيس معدل ترسب كريات الدم الحمراء؟',correct:'ESR',correctAr:'سرعة تثفل الخلايا',opts:[{en:'RBC count',ar:'خلايا الدم الحمراء'},{en:'Hematocrit',ar:'الهيماتوكريت'},{en:'ESR',ar:'سرعة تثفل الخلايا'},{en:'MCHC',ar:'تركيز هيموغلوبين الكرية الوسطي'}],explain:'ESR = Erythrocyte Sedimentation Rate — مؤشر غير نوعي للالتهاب في الجسم. ارتفاعه يشير لوجود التهاب أو عدوى أو مرض مزمن.'},
+  {sys:'blood',en:'What does "Hemoglobin" carry in the blood?',ar:'ماذا يحمل "Hemoglobin" في الدم؟',correct:'الهيموغلوبين',correctAr:'الهيموغلوبين — ناقل الأكسجين',opts:[{en:'Hematocrit',ar:'الهيماتوكريت'},{en:'Hemoglobin',ar:'الهيموغلوبين'},{en:'WBC count',ar:'خلايا الدم البيضاء'},{en:'ESR',ar:'سرعة التثفل'}],explain:'Hemoglobin (الهيموغلوبين) البروتين الأحمر في كريات الدم — يرتبط بـ O2 في الرئتين وينقله للخلايا. انخفاضه يسبب الأنيميا.'},
+  {sys:'blood',en:'Which cells fight infection in the blood?',ar:'أي خلايا تحارب العدوى في الدم؟',correct:'WBC count',correctAr:'خلايا الدم البيضاء',opts:[{en:'RBC count',ar:'خلايا الدم الحمراء'},{en:'WBC count',ar:'خلايا الدم البيضاء'},{en:'Hemoglobin',ar:'الهيموغلوبين'},{en:'Hematocrit',ar:'الهيماتوكريت'}],explain:'WBC = White Blood Cells = كريات الدم البيضاء — جيش الجسم ضد العدوى. ارتفاعها يدل على التهاب أو عدوى، وانخفاضها يدل على ضعف المناعة.'},
+  {sys:'blood',en:'What does "Hematocrit" measure?',ar:'ماذا يقيس "Hematocrit"؟',correct:'الهيماتوكريت',correctAr:'نسبة كريات الدم الحمراء',opts:[{en:'ESR',ar:'سرعة التثفل'},{en:'Hematocrit',ar:'الهيماتوكريت'},{en:'MCH',ar:'هيموغلوبين الكرية الوسطي'},{en:'CBC',ar:'عد الدم الكامل'}],explain:'Hematocrit (الهيماتوكريت) نسبة حجم كريات الدم الحمراء إلى إجمالي حجم الدم — الطبيعي 38-52% للرجال و36-48% للنساء. انخفاضه يدل على الأنيميا.'},
+  {sys:'blood',en:'MCV measures?',ar:'"MCV" يقيس؟',correct:'الحجم الكروي الوسطي',correctAr:'الحجم الكروي الوسطي',opts:[{en:'MCH',ar:'هيموغلوبين الكرية الوسطي'},{en:'MCHC',ar:'تركيز هيموغلوبين الكرية الوسطي'},{en:'MCV',ar:'الحجم الكروي الوسطي'},{en:'ESR',ar:'سرعة التثفل'}],explain:'MCV = Mean Corpuscular Volume = الحجم الكروي الوسطي — يقيس متوسط حجم كرية الدم الحمراء. مفيد لتصنيف الأنيميا: كبيرة الحجم (نقص B12) أم صغيرة الحجم (نقص حديد).'},
+  {sys:'blood',en:'What does "Differential count" show?',ar:'ماذا يُظهر "Differential count"؟',correct:'عد تفريقي',correctAr:'عد تفريقي لأنواع كريات الدم البيضاء',opts:[{en:'RBC count',ar:'خلايا الدم الحمراء'},{en:'ESR',ar:'سرعة التثفل'},{en:'Differential count',ar:'عد تفريقي'},{en:'Hemoglobin',ar:'الهيموغلوبين'}],explain:'Differential count (العد التفريقي) يُظهر نسب أنواع كريات الدم البيضاء المختلفة (Neutrophils, Lymphocytes, Monocytes...) مفيد لتحديد نوع العدوى: بكتيرية أم فيروسية.'},
+  {sys:'blood',en:'RBC count measures?',ar:'"RBC count" يقيس؟',correct:'خلايا الدم الحمراء',correctAr:'كريات الدم الحمراء',opts:[{en:'WBC count',ar:'خلايا الدم البيضاء'},{en:'RBC count',ar:'خلايا الدم الحمراء'},{en:'Hematocrit',ar:'الهيماتوكريت'},{en:'CBC',ar:'عد الدم الكامل'}],explain:'RBC = Red Blood Cells = كريات الدم الحمراء — تحمل الهيموغلوبين وتنقل الأكسجين. عمرها ~120 يوماً والطحال يدمّرها بعدها. نقصها = أنيميا.'},
+  {sys:'blood',en:'MCHC stands for?',ar:'"MCHC" تعني؟',correct:'تركيز هيموغلوبين الكرية الوسطي',correctAr:'تركيز هيموغلوبين الكرية الوسطي',opts:[{en:'MCV',ar:'الحجم الكروي الوسطي'},{en:'MCH',ar:'هيموغلوبين الكرية الوسطي'},{en:'MCHC',ar:'تركيز هيموغلوبين الكرية الوسطي'},{en:'ESR',ar:'سرعة التثفل'}],explain:'MCHC = Mean Corpuscular Hemoglobin Concentration = تركيز الهيموغلوبين داخل الكرية الحمراء. انخفاضه (Hypochromia) يدل على نقص الحديد.'},
+  {sys:'blood',en:'PCV stands for Packed Cell Volume — what does it measure?',ar:'"PCV" ماذا يقيس؟',correct:'حجم الخلايا المكدسة',correctAr:'حجم الخلايا المكدسة',opts:[{en:'ESR',ar:'سرعة التثفل'},{en:'CBC',ar:'عد الدم الكامل'},{en:'Packed cell volume (PCV)',ar:'حجم الخلايا المكدسة'},{en:'Differential count',ar:'عد تفريقي'}],explain:'PCV (حجم الخلايا المكدسة) = Hematocrit تقريباً — يُقاس بطرد الدم في جهاز طرد مركزي وحساب نسبة الخلايا المترسبة. نتيجته قريبة جداً من نتيجة Hematocrit.'},
 
-  // ==================== URINARY ====================
-  { sys:'urinary', type:'translate_en_ar',
-    en: 'What is the Arabic meaning of "Nephron"?',
-    ar: 'ما المعنى العربي لـ "Nephron"؟',
-    correct: 'كليون (نفرون)', correctAr: 'كليون (نفرون)',
-    options: [
-      {en:'Kidney',  ar:'كلية'},
-      {en:'Ureter',  ar:'حالب'},
-      {en:'Nephron', ar:'كليون (نفرون)'},
-      {en:'Urethra', ar:'الإحليل'},
-    ],
-    explain: 'Nephron (الكليون/النفرون) هو الوحدة الوظيفية للكلية — كل كلية تحتوي على ~1 مليون نفرون. وظيفتهم تصفية الدم وإعادة امتصاص المواد المفيدة وطرح الفضلات في البول.'
-  },
-  { sys:'urinary', type:'not_belong',
-    en: 'Which does NOT belong to the urinary system?',
-    ar: 'أيٌّ مما يلي لا ينتمي للجهاز البولي؟',
-    correct: 'Pancreas', correctAr: 'البنكرياس',
-    options: [
-      {en:'Kidney',         ar:'كلية'},
-      {en:'Urinary bladder',ar:'المثانة'},
-      {en:'Pancreas',       ar:'البنكرياس'},
-      {en:'Urethra',        ar:'الإحليل'},
-    ],
-    explain: 'Pancreas (البنكرياس) ينتمي للجهاز الهضمي — يُفرز إنزيمات الهضم وهرمون الإنسولين. أما Kidney وUrinary bladder وUrethra فكلها مكونات الجهاز البولي.'
-  },
-  { sys:'urinary', type:'which_system',
-    en: 'The tube that carries urine from the kidney to the bladder is called?',
-    ar: 'الأنبوب الذي يحمل البول من الكلية إلى المثانة يُسمى؟',
-    correct: 'Ureter', correctAr: 'حالب',
-    options: [
-      {en:'Urethra',        ar:'الإحليل'},
-      {en:'Ureter',         ar:'حالب'},
-      {en:'Renal pelvis',   ar:'الحوض الكلوي'},
-      {en:'Urinary bladder',ar:'المثانة'},
-    ],
-    explain: 'Ureter (الحالب) هو الأنبوب الذي يصل الكلية بالمثانة — كل إنسان عنده حالبان (أيمن وأيسر). لا تخلطه مع Urethra (الإحليل) الذي يصل المثانة بالخارج.'
-  },
+  // ========== URINARY (6) ==========
+  {sys:'urinary',en:'What is the Arabic meaning of "Nephron"?',ar:'ما المعنى العربي لـ "Nephron"؟',correct:'كليون (نفرون)',correctAr:'كليون (نفرون)',opts:[{en:'Kidney',ar:'كلية'},{en:'Ureter',ar:'حالب'},{en:'Nephron',ar:'كليون (نفرون)'},{en:'Urethra',ar:'الإحليل'}],explain:'Nephron (الكليون/النفرون) الوحدة الوظيفية للكلية — كل كلية تحتوي ~1 مليون نفرون لتصفية الدم وإنتاج البول.'},
+  {sys:'urinary',en:'Which does NOT belong to the urinary system?',ar:'أيٌّ مما يلي لا ينتمي للجهاز البولي؟',correct:'Pancreas',correctAr:'البنكرياس',opts:[{en:'Kidney',ar:'كلية'},{en:'Urinary bladder',ar:'المثانة'},{en:'Pancreas',ar:'البنكرياس'},{en:'Urethra',ar:'الإحليل'}],explain:'Pancreas (البنكرياس) ينتمي للجهاز الهضمي — يُفرز إنزيمات الهضم والإنسولين. أما Kidney والمثانة والإحليل فجهاز بولي.'},
+  {sys:'urinary',en:'The tube carrying urine from kidney to bladder?',ar:'الأنبوب الذي يحمل البول من الكلية للمثانة؟',correct:'Ureter',correctAr:'حالب',opts:[{en:'Urethra',ar:'الإحليل'},{en:'Ureter',ar:'حالب'},{en:'Renal pelvis',ar:'الحوض الكلوي'},{en:'Urinary bladder',ar:'المثانة'}],explain:'Ureter (الحالب) يربط الكلية بالمثانة — لا تخلطه مع Urethra (الإحليل) الذي يربط المثانة بالخارج.'},
+  {sys:'urinary',en:'What is the Arabic meaning of "Renal cortex"?',ar:'ما المعنى العربي لـ "Renal cortex"؟',correct:'قشرة الكلية',correctAr:'قشرة الكلية',opts:[{en:'Renal medulla',ar:'لب كلوي'},{en:'Renal pelvis',ar:'الحوض الكلوي'},{en:'Renal cortex',ar:'قشرة الكلية'},{en:'Nephron',ar:'كليون'}],explain:'Renal cortex (قشرة الكلية) الطبقة الخارجية للكلية حيث تتركز معظم الكليونات (Nephrons). "Renal" = كلوي، "cortex" = قشرة.'},
+  {sys:'urinary',en:'The tube that carries urine from bladder to outside is?',ar:'الأنبوب الذي يحمل البول من المثانة للخارج؟',correct:'Urethra',correctAr:'الإحليل',opts:[{en:'Ureter',ar:'حالب'},{en:'Urethra',ar:'الإحليل'},{en:'Renal pelvis',ar:'الحوض الكلوي'},{en:'Nephron',ar:'كليون'}],explain:'Urethra (الإحليل) يربط المثانة بالفتحة الخارجية — أقصر عند المرأة (~4 سم) مما يجعلهن أكثر عرضة لالتهابات المسالك البولية.'},
+  {sys:'urinary',en:'The Renal pelvis is?',ar:'"Renal pelvis" هو؟',correct:'الحوض الكلوي',correctAr:'الحوض الكلوي',opts:[{en:'Renal cortex',ar:'قشرة الكلية'},{en:'Renal medulla',ar:'لب كلوي'},{en:'Renal pelvis',ar:'الحوض الكلوي'},{en:'Nephron',ar:'كليون'}],explain:'Renal pelvis (الحوض الكلوي) التجويف الداخلي للكلية الذي يجمع البول من الأنابيب الكلوية قبل تصريفه في الحالب.'},
 
-  // ==================== ENDOCRINE ====================
-  { sys:'endo', type:'translate_en_ar',
-    en: 'What is the Arabic meaning of "Pituitary gland"?',
-    ar: 'ما المعنى العربي لـ "Pituitary gland"؟',
-    correct: 'الغدة النخامية', correctAr: 'الغدة النخامية',
-    options: [
-      {en:'Thyroid gland',     ar:'الغدة الدرقية'},
-      {en:'Adrenal gland',     ar:'الغدة الكظرية'},
-      {en:'Pituitary gland',   ar:'الغدة النخامية'},
-      {en:'Parathyroid gland', ar:'الغدة الجار درقية'},
-    ],
-    explain: 'Pituitary gland (الغدة النخامية) تُسمى "سيدة الغدد" — موجودة أسفل المخ، صغيرة كحبة البازلاء لكنها تتحكم في معظم الغدد الأخرى في الجسم عبر هرمونات محفِّزة.'
-  },
-  { sys:'endo', type:'not_belong',
-    en: 'Which does NOT belong to the endocrine system?',
-    ar: 'أيٌّ مما يلي لا ينتمي لجهاز الغدد الصماء؟',
-    correct: 'Spleen', correctAr: 'الطحال',
-    options: [
-      {en:'Thyroid gland', ar:'الغدة الدرقية'},
-      {en:'Adrenal gland', ar:'الغدة الكظرية'},
-      {en:'Spleen',        ar:'الطحال'},
-      {en:'Hormone',       ar:'هرمون'},
-    ],
-    explain: 'Spleen (الطحال) ينتمي للجهاز الليمفاوي والمناعي — يصفي الدم ويدمر خلايا الدم التالفة. أما Thyroid وAdrenal وهرمونات الجسم فكلها من الجهاز الصماء.'
-  },
-  { sys:'endo', type:'which_system',
-    en: 'Which gland is located on top of each kidney and produces adrenaline?',
-    ar: 'أي غدة تقع فوق كل كلية وتُنتج الأدرينالين؟',
-    correct: 'Adrenal gland', correctAr: 'الغدة الكظرية',
-    options: [
-      {en:'Thyroid gland',   ar:'الغدة الدرقية'},
-      {en:'Adrenal gland',   ar:'الغدة الكظرية'},
-      {en:'Pituitary gland', ar:'الغدة النخامية'},
-      {en:'Parathyroid gland',ar:'الغدة الجار درقية'},
-    ],
-    explain: 'Adrenal gland (الغدة الكظرية) موجودة فوق الكليتين مباشرةً — تُفرز هرمون الأدرينالين (Epinephrine) وقت الطوارئ والخوف "استجابة القتال أو الهروب"، وكذلك الكورتيزول الذي يتحكم في الالتهاب.'
-  },
+  // ========== ENDOCRINE (6) ==========
+  {sys:'endo',en:'What is the Arabic meaning of "Pituitary gland"?',ar:'ما المعنى العربي لـ "Pituitary gland"؟',correct:'الغدة النخامية',correctAr:'الغدة النخامية',opts:[{en:'Thyroid gland',ar:'الغدة الدرقية'},{en:'Adrenal gland',ar:'الغدة الكظرية'},{en:'Pituitary gland',ar:'الغدة النخامية'},{en:'Parathyroid gland',ar:'الغدة الجار درقية'}],explain:'Pituitary gland (الغدة النخامية) "سيدة الغدد" — أسفل المخ، تتحكم في معظم الغدد الأخرى عبر هرموناتها المحفِّزة.'},
+  {sys:'endo',en:'Which does NOT belong to the endocrine system?',ar:'أيٌّ مما يلي لا ينتمي للغدد الصماء؟',correct:'Spleen',correctAr:'الطحال',opts:[{en:'Thyroid gland',ar:'الغدة الدرقية'},{en:'Adrenal gland',ar:'الغدة الكظرية'},{en:'Spleen',ar:'الطحال'},{en:'Hormone',ar:'هرمون'}],explain:'Spleen (الطحال) ينتمي للجهاز الليمفاوي — يصفي الدم ويدمر الخلايا التالفة. أما الغدة الدرقية والكظرية فغدد صماء.'},
+  {sys:'endo',en:'Which gland sits atop each kidney and produces adrenaline?',ar:'أي غدة تقع فوق كل كلية وتُنتج الأدرينالين؟',correct:'Adrenal gland',correctAr:'الغدة الكظرية',opts:[{en:'Thyroid gland',ar:'الغدة الدرقية'},{en:'Adrenal gland',ar:'الغدة الكظرية'},{en:'Pituitary gland',ar:'الغدة النخامية'},{en:'Parathyroid gland',ar:'الغدة الجار درقية'}],explain:'Adrenal gland (الغدة الكظرية) فوق الكليتين — تُفرز الأدرينالين وقت الطوارئ "استجابة القتال أو الهروب"، والكورتيزول للتحكم في الالتهاب.'},
+  {sys:'endo',en:'The "Thyroid gland" is responsible for?',ar:'"Thyroid gland" مسؤولة عن؟',correct:'الغدة الدرقية',correctAr:'تنظيم الأيض',opts:[{en:'Parathyroid gland',ar:'الغدة الجار درقية'},{en:'Thyroid gland',ar:'الغدة الدرقية'},{en:'Adrenal gland',ar:'الغدة الكظرية'},{en:'Receptor',ar:'مستقبل'}],explain:'Thyroid gland (الغدة الدرقية) في الرقبة — تُنتج هرمونات T3 وT4 التي تتحكم في معدل الأيض. فرطها يسبب الجحوظ وفقدان الوزن، ونقصها يسبب التعب وزيادة الوزن.'},
+  {sys:'endo',en:'What is a "Receptor" in endocrinology?',ar:'ما معنى "Receptor" في الغدد الصماء؟',correct:'مستقبل',correctAr:'مستقبل الهرمون',opts:[{en:'Hormone',ar:'هرمون'},{en:'Receptor',ar:'مستقبل'},{en:'Steroid hormone',ar:'هرمون ستيرويدي'},{en:'Endocrine',ar:'صماء'}],explain:'Receptor (المستقبل) بروتين على الخلية يرتبط بالهرمون ويُفعّله — كل هرمون له مستقبل خاص مثل القفل والمفتاح. بدون المستقبل الهرمون لا يعمل.'},
+  {sys:'endo',en:'Steroid hormones are derived from?',ar:'الهرمونات الستيرويدية مشتقة من؟',correct:'هرمون ستيرويدي',correctAr:'الكوليسترول',opts:[{en:'Hormone',ar:'هرمون'},{en:'Steroid hormone',ar:'هرمون ستيرويدي'},{en:'Receptor',ar:'مستقبل'},{en:'Endocrine',ar:'صماء'}],explain:'Steroid hormones (الهرمونات الستيرويدية) مشتقة من الكوليسترول — تشمل: هرمونات الكورتيزول، الإستروجين، التستوستيرون، والألدوستيرون. تختلف عن الهرمونات البروتينية في آلية عملها.'},
 ];
 
 // ============================================================
 // STATE
 // ============================================================
 let currentFilter = 'all';
-let questions = [];
-let currentIdx = 0;
+let activeQuestions = [];
+let answered = {};
 let score = 0;
 let wrongCount = 0;
-let answered = false;
 
 // ============================================================
-// INIT
+// HELPERS
 // ============================================================
-function setFilter(f, btn) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  startQuiz();
-}
-
 function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length-1; i>0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   return a;
 }
 
-function startQuiz(randomize) {
-  let pool = currentFilter === 'all' ? ALL_QUESTIONS : ALL_QUESTIONS.filter(q => q.sys === currentFilter);
-  if (randomize) pool = shuffle(pool);
-  questions = pool;
-  currentIdx = 0;
-  score = 0;
-  wrongCount = 0;
-  updateScore();
-
-  document.getElementById('resultsScreen').classList.remove('show');
-  document.getElementById('qCard').style.display = '';
-  document.getElementById('emptyState').classList.remove('show');
-
-  if (questions.length === 0) {
-    document.getElementById('qCard').style.display = 'none';
-    document.getElementById('emptyState').classList.add('show');
-    return;
-  }
-  renderQuestion();
+// ============================================================
+// RENDER
+// ============================================================
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildQuiz();
 }
 
-function renderQuestion() {
-  if (currentIdx >= questions.length) { showResults(); return; }
-  answered = false;
-  const q = questions[currentIdx];
+function buildQuiz(randomize) {
+  answered = {}; score = 0; wrongCount = 0;
+  updateScoreBar();
+
+  let pool = currentFilter==='all' ? ALL_Q : ALL_Q.filter(q=>q.sys===currentFilter);
+  if (randomize) pool = shuffle(pool);
+  activeQuestions = pool;
+
+  const list = document.getElementById('quizList');
+  const empty = document.getElementById('emptyState');
+  const res = document.getElementById('resultsScreen');
+  list.innerHTML = '';
+  res.classList.remove('show');
+  empty.classList.remove('show');
+
+  if (pool.length === 0) { empty.classList.add('show'); return; }
+
+  pool.forEach((q, idx) => {
+    const card = buildCard(q, idx);
+    list.appendChild(card);
+  });
+
+  updateProgress();
+}
+
+function buildCard(q, idx) {
   const sys = SYSTEMS[q.sys];
-
-  document.getElementById('qNum').textContent = `سؤال ${currentIdx+1} / ${questions.length}`;
-
-  const sysBadge = document.getElementById('qSys');
-  sysBadge.textContent = sys.icon + ' ' + sys.label;
-  sysBadge.style.background = sys.bg;
-  sysBadge.style.color = sys.color;
-
-  document.getElementById('qEn').textContent = q.en;
-  document.getElementById('qAr').textContent = q.ar;
-
-  // Shuffle options
-  const opts = shuffle(q.options);
+  const opts = shuffle(q.opts);
   const letters = ['A','B','C','D'];
-  const grid = document.getElementById('optionsGrid');
-  grid.innerHTML = '';
-  opts.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'opt-btn';
-    btn.innerHTML = `
+
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  card.id = 'qcard-' + idx;
+
+  const optsHTML = opts.map((opt, i) => `
+    <button class="opt-btn" onclick="selectAnswer(${idx}, '${opt.en.replace(/'/g,"\\'")}', this)">
       <span class="opt-letter">${letters[i]}</span>
       <span class="opt-en">${opt.en}</span>
       <span class="opt-ar">${opt.ar}</span>
-    `;
-    btn.onclick = () => selectAnswer(btn, opt.en, q);
-    grid.appendChild(btn);
-  });
+    </button>
+  `).join('');
 
-  // Hide feedback & next
-  const fb = document.getElementById('feedback');
-  fb.className = 'feedback';
-  fb.style.display = 'none';
-  document.getElementById('nextWrap').classList.remove('show');
-
-  // Progress
-  const pct = Math.round((currentIdx / questions.length) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progLabel').textContent = `السؤال ${currentIdx+1} من ${questions.length}`;
-  document.getElementById('progRight').textContent = `${score} صح • ${wrongCount} غلط`;
+  card.innerHTML = `
+    <div class="q-header">
+      <span class="q-num">سؤال ${idx+1}</span>
+      <span class="q-sys-badge" style="background:${sys.bg};color:${sys.color}">${sys.icon} ${sys.label}</span>
+      <div class="q-text-wrap">
+        <div class="q-en">${q.en}</div>
+        <div class="q-ar">${q.ar}</div>
+      </div>
+    </div>
+    <div class="options" id="opts-${idx}">${optsHTML}</div>
+    <div class="feedback" id="fb-${idx}">
+      <div class="fb-title" id="fb-title-${idx}"></div>
+      <div class="fb-ans" id="fb-ans-${idx}"></div>
+      <div class="fb-explain" id="fb-exp-${idx}"></div>
+    </div>
+  `;
+  return card;
 }
 
-function selectAnswer(btn, chosen, q) {
-  if (answered) return;
-  answered = true;
-  const isCorrect = chosen === q.correct;
+function selectAnswer(idx, chosen, btn) {
+  if (answered[idx]) return;
+  answered[idx] = true;
 
-  // Style all buttons
-  document.querySelectorAll('.opt-btn').forEach(b => {
+  const q = activeQuestions[idx];
+  const isCorrect = chosen === q.correct;
+  if (isCorrect) score++; else wrongCount++;
+
+  // Style buttons
+  const optsDiv = document.getElementById('opts-' + idx);
+  optsDiv.querySelectorAll('.opt-btn').forEach(b => {
     b.disabled = true;
     const bEn = b.querySelector('.opt-en').textContent;
-    if (bEn === q.correct) {
-      b.classList.add('correct');
-    } else if (b === btn && !isCorrect) {
-      b.classList.add('wrong');
-    } else {
-      b.classList.add('dimmed');
-    }
+    if (bEn === q.correct) b.classList.add('correct');
+    else if (b === btn && !isCorrect) b.classList.add('wrong');
+    else b.classList.add('dimmed');
   });
 
   // Feedback
-  const fb = document.getElementById('feedback');
+  const fb = document.getElementById('fb-' + idx);
+  const fbTitle = document.getElementById('fb-title-' + idx);
+  const fbAns = document.getElementById('fb-ans-' + idx);
+  const fbExp = document.getElementById('fb-exp-' + idx);
+
   if (isCorrect) {
-    score++;
-    fb.className = 'feedback correct-fb';
-    document.getElementById('fbTitle').innerHTML = '✅ إجابة صحيحة تماماً!';
-    document.getElementById('fbCorrect').innerHTML = '';
+    fb.className = 'feedback show-correct';
+    fbTitle.innerHTML = '✅ إجابة صحيحة!';
+    fbAns.innerHTML = '';
   } else {
-    wrongCount++;
-    fb.className = 'feedback wrong-fb';
-    document.getElementById('fbTitle').innerHTML = '❌ إجابة خاطئة';
-    document.getElementById('fbCorrect').innerHTML = `الإجابة الصحيحة: <strong>${q.correct} — ${q.correctAr}</strong>`;
+    fb.className = 'feedback show-wrong';
+    fbTitle.innerHTML = '❌ إجابة خاطئة';
+    fbAns.innerHTML = `الإجابة الصحيحة: <strong>${q.correct} — ${q.correctAr}</strong>`;
   }
-  document.getElementById('fbExplain').innerHTML = '💡 ' + q.explain;
-  fb.style.display = 'block';
-  document.getElementById('nextWrap').classList.add('show');
-  updateScore();
+  fbExp.innerHTML = '💡 ' + q.explain;
+
+  // Card border
+  const card = document.getElementById('qcard-' + idx);
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+  updateScoreBar();
+  updateProgress();
+
+  // Auto scroll to next unanswered question
+  const totalAnswered = Object.keys(answered).length;
+  if (totalAnswered === activeQuestions.length) {
+    setTimeout(showResults, 600);
+  } else {
+    // find next unanswered
+    for (let i = idx+1; i < activeQuestions.length; i++) {
+      if (!answered[i]) {
+        setTimeout(() => {
+          const nextCard = document.getElementById('qcard-' + i);
+          if (nextCard) nextCard.scrollIntoView({ behavior:'smooth', block:'start' });
+        }, 500);
+        break;
+      }
+    }
+  }
 }
 
-function nextQuestion() {
-  currentIdx++;
-  if (currentIdx >= questions.length) { showResults(); return; }
-  renderQuestion();
-}
-
-function updateScore() {
-  const total = score + wrongCount;
+function updateScoreBar() {
+  const total = Object.keys(answered).length;
   document.getElementById('scTotal').textContent = total;
   document.getElementById('scCorrect').textContent = score;
   document.getElementById('scWrong').textContent = wrongCount;
@@ -1052,32 +545,44 @@ function updateScore() {
   document.getElementById('scPct').textContent = pct + '%';
 }
 
-function showResults() {
-  document.getElementById('qCard').style.display = 'none';
-  document.getElementById('progressFill').style.width = '100%';
-  document.getElementById('progLabel').textContent = 'انتهى الاختبار!';
+function updateProgress() {
+  const total = activeQuestions.length;
+  const done = Object.keys(answered).length;
+  const pct = total > 0 ? Math.round((done/total)*100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progLabel').textContent = `${done} / ${total} سؤال`;
+  document.getElementById('progRight').textContent = `${score} صح • ${wrongCount} غلط`;
+}
 
-  const pct = questions.length > 0 ? Math.round((score/questions.length)*100) : 0;
-  let emoji = '😅', title = 'حاول تاني!', sub = 'مش مشكلة، راجع المصطلحات وارجع تحاول';
-  if (pct >= 90) { emoji='🏆'; title='ممتاز! أنت متفوق!'; sub='نتيجة رائعة جداً، استمر على هذا المستوى!'; }
-  else if (pct >= 70) { emoji='🎉'; title='أحسنت! نتيجة جيدة'; sub='مستوى كويس، بس فيه مجال للتحسين'; }
-  else if (pct >= 50) { emoji='📚'; title='مقبول — راجع المادة'; sub='راجع المصطلحات اللي وقعت فيها وحاول تاني'; }
+function showResults() {
+  const pct = activeQuestions.length > 0 ? Math.round((score/activeQuestions.length)*100) : 0;
+  let emoji='😅', title='حاول تاني!', sub='مش مشكلة — راجع المصطلحات وارجع تحاول';
+  if(pct>=90){emoji='🏆';title='ممتاز! أنت متفوق!';sub='نتيجة رائعة جداً، استمر على هذا المستوى!';}
+  else if(pct>=70){emoji='🎉';title='أحسنت! نتيجة جيدة';sub='مستوى كويس، بس فيه مجال للتحسين';}
+  else if(pct>=50){emoji='📚';title='مقبول — راجع المادة';sub='راجع المصطلحات اللي وقعت فيها وحاول تاني';}
 
   document.getElementById('resEmoji').textContent = emoji;
   document.getElementById('resTitle').textContent = title;
   document.getElementById('resSub').textContent = sub;
-  document.getElementById('rTotal').textContent = questions.length;
+  document.getElementById('rTotal').textContent = activeQuestions.length;
   document.getElementById('rCorrect').textContent = score;
   document.getElementById('rPct').textContent = pct + '%';
-  document.getElementById('resultsScreen').classList.add('show');
+
+  const res = document.getElementById('resultsScreen');
+  const list = document.getElementById('quizList');
+  list.appendChild(res);
+  res.classList.add('show');
+  setTimeout(() => res.scrollIntoView({behavior:'smooth', block:'start'}), 300);
 }
 
 function restartQuiz(randomize) {
-  startQuiz(randomize);
+  window.scrollTo({top:0, behavior:'smooth'});
+  setTimeout(() => buildQuiz(randomize), 400);
 }
 
-// Start!
-startQuiz();
+// Start
+buildQuiz();
 </script>
 </body>
 </html>
+
